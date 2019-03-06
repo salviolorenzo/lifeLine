@@ -8,5 +8,13 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.4",
+    "body-parser": "^1.18.3",
+    "connect-pg-simple": "^5.0.0",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "pgpromise": "^0.1.1"
+  }
 }
