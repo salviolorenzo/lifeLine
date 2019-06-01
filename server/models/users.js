@@ -2,12 +2,20 @@ const db = require('./db');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-class User {
+class users {
   constructor(id, name, email, password) {
     this.id = id;
     this.name = name;
     this.email = email;
     this.password = password;
+  }
+
+  static getUsers() {
+    return db.any(`select * from users;`).then(results => {
+      return results.map(item => {
+        return new User(item.id, item.name, item.email, item.hash);
+      });
+    });
   }
 
   static addUser(name, email, password) {
@@ -48,3 +56,5 @@ class User {
     return db.any(`select * from user_friends where user_id = $1`, [user_id]);
   }
 }
+
+module.exports = users;

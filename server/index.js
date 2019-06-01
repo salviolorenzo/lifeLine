@@ -4,19 +4,17 @@ const app = express();
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const pgSession = require('connect-pg-simple')(session);
-const User = require('./models/User');
+const users = require('./models/users');
 const path = require('path');
 const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const cors = require('cors'); // addition we make
 const fileUpload = require('express-fileupload'); //addition we make
-
-const index = require('./routes/index');
-const users = require('./routes/users');
+require('dotenv').config();
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(
   session({
     store: new pgSession({
@@ -39,8 +37,6 @@ app.use(fileUpload());
 
 app.use('/public', express.static(__dirname + '/public'));
 
-app.use('/', index);
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   const err = new Error('Not Found');
@@ -56,7 +52,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.json({ message: err.message, error: err });
 });
 
 app.use((req, res, next) => {
@@ -64,14 +60,24 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/:userId/friends', (req, res) => {
-  User.getUserFriends(req.params.user_id).then(friends => {
+app.get('/', (req, res) => {
+  res.json('ROOT');
+});
+
+app.get('/api/users', (req, res) => {
+  users.getUsers().then(results => {
+    res.json(results);
+  });
+});
+
+app.get('/api/:userId/friends', (req, res) => {
+  users.getUserFriends(req.params.user_id).then(friends => {
     res.json(friends);
   });
 });
 
 app.post('/api/login', (req, res) => {
-  User.getByEmail(req.body.email).then(user => {
+  users.getByEmail(req.body.email).then(user => {
     req.session.user = user;
     const doesMatch = user.checkPassword(req.body.password);
     res.send(doesMatch);
@@ -79,13 +85,13 @@ app.post('/api/login', (req, res) => {
 });
 
 app.post('/api/register', (req, res) => {
-  User.addUser(req.body.name, req.body.email, req.body.password).then(
-    result => {
+  users
+    .addUser(req.body.name, req.body.email, req.body.password)
+    .then(result => {
       console.log(result);
       req.session.user = result;
       res.send(result);
-    }
-  );
+    });
 });
 
 app.post('/api/logout', (req, res) => {
@@ -93,13 +99,13 @@ app.post('/api/logout', (req, res) => {
   res.redirect('/');
 });
 
-app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname, 'public/index.html'), function(err) {
-    if (err) {
-      res.status(500).send(err);
-    }
-  });
-});
+// app.get('/*', function(req, res) {
+//   res.sendFile(path.join(__dirname, 'public/index.html'), function(err) {
+//     if (err) {
+//       res.status(500).send(err);
+//     }
+//   });
+// });
 
 app.listen(4000, () => {
   console.log('Listening on 4000...');
