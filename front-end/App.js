@@ -5,8 +5,11 @@ import AppNavigator from './navigation/AppNavigator';
 
 export default class App extends React.Component {
   constructor(props) {
+    super(props);
     state = {
-      isLoadingComplete: false
+      isLoadingComplete: false,
+      user: {},
+      user_friends: []
     };
   }
 
