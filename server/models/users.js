@@ -11,11 +11,22 @@ class users {
   }
 
   static getUsers() {
-    return db.any(`select * from users;`).then(results => {
-      return results.map(item => {
-        return new User(item.id, item.name, item.email, item.hash);
+    return db
+      .any(`select * from users`)
+      .then(results => {
+        console.log(results);
+        return results.map(result => {
+          return new User(
+            result.id,
+            result.name,
+            result.email,
+            result.password
+          );
+        });
+      })
+      .catch(err => {
+        console.log(err);
       });
-    });
   }
 
   static addUser(name, email, password) {

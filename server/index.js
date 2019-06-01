@@ -15,19 +15,19 @@ require('dotenv').config();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(
-  session({
-    store: new pgSession({
-      pgPromise: db
-    }),
-    secret: 'sdfhgdfhgfhfgdhgf',
-    resave: true,
-    saveUninitialized: false,
-    cookie: {
-      maxAge: 30 * 24 * 60 * 60 * 1000
-    }
-  })
-);
+// app.use(
+//   session({
+//     store: new pgSession({
+//       pgPromise: db
+//     }),
+//     secret: 'sdfhgdfhgfhfgdhgf',
+//     resave: true,
+//     saveUninitialized: false,
+//     cookie: {
+//       maxAge: 30 * 24 * 60 * 60 * 1000
+//     }
+//   })
+// );
 
 app.use(cookieParser());
 
@@ -39,9 +39,11 @@ app.use('/public', express.static(__dirname + '/public'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  const err = new Error('Not Found');
+  const err = new Error(`Not Found`);
+
   err.status = 404;
-  next(err);
+  console.log(res);
+  next(err + ': ' + res);
 });
 
 // error handler
@@ -55,10 +57,10 @@ app.use(function(err, req, res, next) {
   res.json({ message: err.message, error: err });
 });
 
-app.use((req, res, next) => {
-  let isLoggedIn = req.session.user ? true : false;
-  next();
-});
+// app.use((req, res, next) => {
+//   let isLoggedIn = req.session.user ? true : false;
+//   next();
+// });
 
 app.get('/', (req, res) => {
   res.json('ROOT');

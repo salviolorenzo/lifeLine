@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "reset-db": "dropdb lifeline-db; createdb lifeline-db; psql -f schema.sql lifeline-db; psql -f seed.sql lifeline-db; psql lifeline-db < node_modules/connect-pg-simple/table.sql",
+    "reset-db": "dropdb lifeline-db; createdb lifeline-db; psql -f schema.sql lifeline-db; psql -f seed.sql lifeline-db;",
     "dev": "nodemon index.js",
     "debug": "node --inspect-brk index.js",
     "test": "echo \"Error: no test specified\" && exit 1"

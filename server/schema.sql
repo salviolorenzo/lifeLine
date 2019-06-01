@@ -47,3 +47,4 @@ create table user_answers(
   created_at timestamp,
   updated_at timestamp
 );
+
