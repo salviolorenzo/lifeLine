@@ -1,16 +1,19 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import WelcomeScreen from './screens/WelcomeScreen';
+import HomeScreen from './screens/HomeScreen';
+import ProfileScreen from './screens/ProfileScreen';
 import Header from './assets/components/header';
-import Welcome from './assets/components/welcome';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Header />
-      <Welcome />
-    </View>
-  );
-}
+const MainNav = createStackNavigator(
+  { Welcome: WelcomeScreen, Home: HomeScreen, Profile: ProfileScreen },
+  {
+    initialRouteName: 'Welcome'
+  }
+);
+
+const App = createAppContainer(MainNav);
 
 const styles = StyleSheet.create({
   container: {
@@ -20,3 +23,5 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start'
   }
 });
+
+export default App;

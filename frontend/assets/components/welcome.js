@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 import { Image, Button } from 'react-native-elements';
 import logo from '../images/noname.png';
-const console = require('console');
 
 const onPress = event => {
   alert(event.target.value);
@@ -13,7 +12,7 @@ export default function welcome() {
     <View style={styles.container}>
       <Image
         source={require('../images/noname.png')}
-        style={{ width: 200, height: 200 }}
+        style={styles.img}
         PlaceholderContent={<ActivityIndicator />}
       />
       <Text style={styles.welcomeText}>Welcome to LifeLine.</Text>
@@ -52,9 +51,15 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start'
   },
 
-  img: {},
+  img: {
+    marginTop: 75,
+    width: 300,
+    height: 200
+  },
+
   welcomeText: {
-    margin: 5,
+    marginBottom: 5,
+    marginTop: 100,
     fontSize: 36,
     color: '#25ceff'
   },
@@ -65,8 +70,10 @@ const styles = StyleSheet.create({
 
   buttonContainer: {
     flex: 1,
+    width: 300,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-evenly',
+    paddingTop: 25,
     alignItems: 'flex-start'
   },
 
