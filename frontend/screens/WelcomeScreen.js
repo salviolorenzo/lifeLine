@@ -20,7 +20,10 @@ export default class WelcomeScreen extends Component {
   static navigationOptions = {
     title: 'Welcome',
     headerStyle: {
-      backgroundColor: '#25ceff',
+      backgroundColor: '#25ceff'
+    },
+    headerTitleStyle: {
+      fontWeight: 'bold',
       color: 'white'
     }
   };
@@ -64,7 +67,7 @@ export default class WelcomeScreen extends Component {
             }}
             buttonStyle={styles.buttons}
             type="solid"
-            title="Register"
+            title="Sign Up"
             raised={true}
           />
         </View>
@@ -165,7 +168,7 @@ export default class WelcomeScreen extends Component {
               height: 40
             }}
             type="solid"
-            title="Log In"
+            title="Sign Up"
             raised={true}
           />
         </Form>
