@@ -9,7 +9,7 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 const MainNav = createStackNavigator(
   { Welcome: WelcomeScreen, Home: HomeScreen, Profile: ProfileScreen },
   {
-    initialRouteName: 'Welcome'
+    initialRouteName: 'Home'
   }
 );
 

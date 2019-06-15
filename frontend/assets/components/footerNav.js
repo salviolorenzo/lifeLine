@@ -1,20 +1,55 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Footer } from 'react-native-elements';
+
+const navItems = [
+  {
+    icon: '',
+    name: 'Home'
+  },
+  {
+    icon: '',
+    name: 'People'
+  },
+  {
+    icon: '',
+    name: 'Chat'
+  },
+  {
+    icon: '',
+    name: 'Settings'
+  }
+];
 
 export default function footer() {
   return (
-    <Footer
-      style={styles.container}
-      leftComponent={{ icon: 'menu', color: '#fff' }}
-      centerComponent={{ text: 'LifeLine', style: { color: '#fff' } }}
-      rightComponent={{ icon: 'home', color: '#fff' }}
-    />
+    <View style={styles.container}>
+      {navItems.map((item, index) => {
+        return (
+          <Text key={index} style={styles.items}>
+            {item.name}
+          </Text>
+        );
+      })}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#25ceff'
+    backgroundColor: '#25ceff',
+    color: 'white',
+    height: 50,
+    position: 'absolute',
+    bottom: 0,
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignSelf: 'stretch'
   }
+  // items: {
+  //   flex: 1,
+  //   flexDirection: 'row',
+  //   justifyContent: 'center',
+  //   alignItems: 'center'
+  // }
 });
